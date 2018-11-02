@@ -1,0 +1,56 @@
+<mat-card layout-fill fxLayout="column" fxLayoutGap="40px" class="custom_mat_detail">
+    <mat-card>
+        <mat-card-content>
+            <div fxLayout="row">
+                <form id='roomForm' fxFlex="85%" fxLayout="column" fxLayoutAlign="start start " [formGroup]="roomForm">
+                    <div mat-line><span class="label_bold">{{"RoomName" | translate}}:</span> {{room.roomName}}</div>
+                    <div>
+                        <label class="label_bold">{{"Place" | translate}}:</label>
+                        <mat-form-field>
+                            <input matInput id='place' name='#place' #place formControlName="place">
+                        </mat-form-field>
+                    </div>
+                    <div mat-line><span class="label_bold">{{"Account" | translate}}:</span> {{room.account}}</div>
+                    <mat-slide-toggle labelPosition=before  formControlName="status" color='primary'><span class="label_bold">{{"Status"
+    |
+    translate}}</span></mat-slide-toggle>
+                </form>
+                <div fxFlex="30%" fxLayoutAlign="center center">
+                    <button class="primart_Btn" mat-raised-button [type]="submit" (click)="Save()" [disabled]='roomForm.invalid || roomForm.pristine'>{{"Edit"
+                        |
+                        translate}}</button>
+                </div>
+            </div>
+        </mat-card-content>
+        <mat-divider></mat-divider>
+        <mat-list role="list" style='padding:0%'>
+            <mat-list-item class='mat-list-item-fixed' style='height:120px ; width:100%' role="listitem" *ngFor="let device of room.devices; let lastItem = last;">
+
+                <mat-icon matListIcon><img src="../../../assets/images/{{device.deviceType}}.png" alt="Desc 1 "></mat-icon>
+                <h3 class="device_title" mat-line>{{device.deviceType}}</h3>
+                <h4 *ngIf="device.deviceName" mat-line class="device_label"><span class="device_label_title">{{"Model" | translate}}:</span> {{device.deviceName}}</h4>
+                <!-- <h4 *ngIf="device.deviceName" mat-line class="device_label"><span class="device_label_title">{{"Serial No" | translate}}:</span> {{device.SerialNo}}</h4> -->
+                <h4 *ngIf="device.deviceName" mat-line class="device_label"><span class="device_label_title">{{"IP Address" | translate}}:</span> {{device.networkAddress}}</h4>
+                <div fxflex="noshrink" fxFlex="30%" fxLayout="column" fxLayoutGap="10px" fxLayoutAlign="end center">
+                    <div *ngIf="device.deviceName" fxLayout="row" fxLayoutGap="10px">
+                        <button class="primart_Btn" mat-raised-button routerLink='../{{room.roomId}}/device/{{device.deviceId}}' [queryParams]="{deviceType: device.deviceType}">{{"Edit"
+                            | translate}}</button>
+                        <button class="primart_Btn" mat-raised-button (click)="delete(device)">{{"Delete" | translate}}</button>
+                    </div>
+                    <div *ngIf="device.deviceName">
+                        <button class='primart_Btn mat-raised-button-large' mat-raised-button>{{"ChangeRoom" | translate}}</button>
+                    </div>
+                    <div *ngIf="!device.deviceName">
+                        <button class='primart_Btn mat-raised-button-large' mat-raised-button routerLink='../{{room.roomId}}/device'
+                            [queryParams]="{deviceType: device.deviceType}">{{"RegisterDevice"
+                            | translate}}</button>
+                    </div>
+                </div>
+                <mat-divider *ngIf="!lastItem"></mat-divider>
+            </mat-list-item>
+        </mat-list>
+    </mat-card>
+    <div mat-line fxLayoutAlign="end end">
+        <button class="primart_Btn" mat-raised-button routerLink='/roomlist'>{{"Ok"|translate}}</button>
+    </div>
+</mat-card>

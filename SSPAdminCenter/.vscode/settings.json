@@ -1,0 +1,15 @@
+{
+    "editor.wordWrap": "off",
+    "files.exclude": {
+			"**/node_modules": {},
+			"typings": {},
+			"**/*.map": {},
+			"**/*.js": {
+				"when": "$(basename).ts"
+			}
+	},
+    "eslint.enable": false,
+    "prettier.singleQuote": true,
+    "prettier.trailingComma": "all",
+    "prettier.printWidth": 100
+}

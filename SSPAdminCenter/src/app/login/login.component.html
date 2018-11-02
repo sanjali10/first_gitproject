@@ -1,0 +1,33 @@
+<div class="signin-content">
+    <mat-card>
+        <mat-card-content>
+            <p>
+                <a class="navigation" [routerLink]="" id="login-tenant-link" (click)="enableTenantForm()">{{token.getTenantName()}}</a>
+            </p>
+            <mat-card class="login_container custom_mat_form">
+                <form [formGroup]="form" (ngSubmit)="onSubmit()" #f="ngForm" name="loginForm" id="loginForm">
+                    <mat-form-field class="full-width-input" *ngIf="tenantSelect">
+                        <input matInput placeholder="{{'Tenant' | translate }}" formControlName="tenant" required name="login-name-tenant" id="login-id-tenant"
+                            ngmodel #tenant>
+                        <mat-error class="help-block" *ngIf="!tenant.valid">{{"Please enter tenant" | translate}}</mat-error>
+                    </mat-form-field>
+                    <mat-form-field class="full-width-input">
+                        <input matInput placeholder="{{'Username' | translate }}" formControlName="userName" required name="user" id="user" ngmodel
+                            #user autocomplete="nope">
+                        <mat-error class="help-block" *ngIf="!user.valid">{{"Please enter user name" | translate}}</mat-error>
+                    </mat-form-field>
+                    <mat-form-field class="full-width-input">
+                        <input matInput type="password" placeholder="{{'Password' | translate }}" formControlName="password" required name="passWord"
+                            id="passWord" ngmodel #passWord autocomplete="new-password">
+                        <mat-error class="help-block" *ngIf="!passWord.valid">{{"Please enter password" | translate}}</mat-error>
+                    </mat-form-field>
+                    <mat-checkbox labelPosition="after" checked="true" (change)="check($event)" class="login_checkbox" [(checked)]="IsChecked" [disabled]="IsDisabled">
+                        Remember my login on this computer!
+                    </mat-checkbox>
+                    <button mat-raised-button color="primary" type="submit" class="primart_Btn" id="login-id-do-login" [disabled]="!f.valid">{{"Log In" |translate}}</button>
+                    <mat-error class="help-block" *ngIf="loginFailed">{{"Sorry, your username and password are incorrect - please try again." |translate}}</mat-error>
+                </form>
+            </mat-card>
+        </mat-card-content>
+    </mat-card>
+</div>
